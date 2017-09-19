@@ -28,7 +28,8 @@ message ConfigOpts {
 
 message Config {
     string Provider = 1;
-    bytes content = 2;
+    SwOpts swopts = 2;
+    AdditionalPkcs11Opts pkcs11opts = 3;
 }
 message SwOpts {
     // Default algorithms when not specified (Deprecated?)
@@ -39,17 +40,12 @@ message SwOpts {
     DummyKeystoreOpts dummy = 5;
 }
 
-message Pkcs11Opts {
-    int32 SecLevel = 1;
-    string HashFamily = 2;
-    bool Epemeral = 3;
-    string FileKeystoreOpts = 4;
-    DummyKeystoreOpts dummy = 5;
-    string Library = 6;
-    string Label = 7;
-    string Pin = 8;
-    bool Sensitive = 9;
-    bool SoftVerify = 10;
+message AdditionalPkcs11Opts {
+    string Library = 1;
+    string Label = 2;
+    string Pin = 3;
+    bool Sensitive = 4;
+    bool SoftVerify = 5;
 }
 
 message DummyKeystoreOpts {
