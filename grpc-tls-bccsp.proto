@@ -1,0 +1,57 @@
+/*
+Copyright IBM Corp. 2017 All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+		 http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+syntax = "proto3";
+
+package grpctlsbccsp;
+
+service GrpcBccspManager {
+    rpc GetConfig(ConfigOpts) returns (Config) {}
+    rpc SetConfig(ConfigOpts) returns (Config) {}
+}
+
+message ConfigOpts {
+    string opts = 1;
+}
+
+message Config {
+    string Provider = 1;
+    bytes content = 2;
+}
+message SwOpts {
+    // Default algorithms when not specified (Deprecated?)
+    int32 SecLevel = 1;
+    string HashFamily = 2;
+    bool Ephemeral = 3;
+    string FileKeystoreOpts = 4;
+    DummyKeystoreOpts dummy = 5;
+}
+
+message Pkcs11Opts {
+    int32 SecLevel = 1;
+    string HashFamily = 2;
+    bool Epemeral = 3;
+    string FileKeystoreOpts = 4;
+    DummyKeystoreOpts dummy = 5;
+    string Library = 6;
+    string Label = 7;
+    string Pin = 8;
+    bool Sensitive = 9;
+    bool SoftVerify = 10;
+}
+
+message DummyKeystoreOpts {
+    // place holder, empty
+}
