@@ -6,12 +6,18 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"os"
+	"fmt"
+	"crypto/rand"
 )
 
 const TEST_ADDRESS = "127.0.0.1:12443"
 const PEM_FILE = "/Users/jamesguan/go/src/github.com/hyperledger/fabric-ca/bin/ca-cert.pem"
 
 func main() {
+	b := make([]byte, 10)
+	fmt.Println("b %T content %v", b, b)
+	rand.Read(b)
+	fmt.Println("Now b content %v", b)
 	rootPEM, err := ioutil.ReadFile(PEM_FILE)
 	if err != nil {
 		log.Panicln(err)
