@@ -26,14 +26,25 @@ const SSL_CERT_FULL_NAME = "/Users/jamesguan/go/src/github.com/hyperledger/fabri
 const SSL_TEST_PORT = ":12443"
 
 func (s *pkcs11BccspServer)GetConfig(ctx context.Context, cfgopts *pb.ConfigOpts)(*pb.Config, error) {
-	var cfg = &pb.Config{
-		Provider: cfgopts.Opts,
+	cfg := new(pb.Config)
+	switch cfgopts.Opts {
+	case "SW":
+		cfg.Provider = "SW"
+
+	case "PKCS11":
+		cfg.Provider = "PKCS11"
+
+	default:
+		return nil, nil
 	}
+
 	return cfg, nil
 }
 
 func (s *pkcs11BccspServer)SetConfig(ctx context.Context, cfgopts *pb.ConfigOpts)(*pb.Config, error) {
-	return nil, nil
+	cfg := new(pb.Config)
+	cfg.Provider = cfgopts.Opts
+	return cfg, nil
 }
 
 func newServer() *pkcs11BccspServer {
