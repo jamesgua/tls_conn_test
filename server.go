@@ -1,3 +1,4 @@
+
 package main
 
 import (
@@ -8,10 +9,10 @@ import (
 	"bufio"
 	"runtime/trace"
 	"github.com/hyperledger/fabric-ca/util"
+	_ "github.com/hyperledger/fabric/bccsp"
 	"github.com/hyperledger/fabric/bccsp/factory"
-	// "github.com/hyperledger/fabric/bccsp/pkcs11"
-	// "golang.org/x/crypto/sha3"
 	"github.com/hyperledger/fabric/bccsp/pkcs11"
+	_ "fmt"
 )
 
 // const TLS_CERT_PATH = "/Users/jamesguan/go/src/github.com/hyperledger/tls-connection"
@@ -68,8 +69,8 @@ func main() {
 		log.Println(err)
 		return
 	}
-
-	config := &tls.Config{Certificates: []tls.Certificate{*cer}}
+	w := os.Stdout
+	config := &tls.Config{Certificates: []tls.Certificate{*cer}, KeyLogWriter: w,}
 	ln, err := tls.Listen("tcp", SSL_TEST_PORT, config)
 	if err != nil {
 		log.Println(err)
